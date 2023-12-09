@@ -20,5 +20,12 @@ namespace RevolutionHotel.Admin
                 }
             }
         }
+
+        public int TotalCustomers()
+        {
+            int customers = 10;
+
+            return 10;
+        }
     }
 }
