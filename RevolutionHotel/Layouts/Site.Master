@@ -1,0 +1,44 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="RevolutionHotel.Layouts.Site" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Revolution Hotel | <%:Page.Title %></title>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="../components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../components/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="../components/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="../components/datepicker/css/zebra_datepicker.min.css" rel="stylesheet" />
+    <link href="../assets/css/global.css" rel="stylesheet" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <link href="../assets/css/login.css" rel="stylesheet" />
+    <link href="../assets/img/logo.jpg" rel="icon" />
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+    </form>
+
+    <script src="../vendors/js/jQuery.js"></script>
+    <script src="../components/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../components/font-awesome/js/all.min.js"></script>
+    <script src="../components/datepicker/js/zebra_datepicker.min.js"></script>
+    <script src="../components/select2/js/select2.min.js"></script>
+    <script src="../assets/js/script.js"></script>
+
+    <script>
+        // Allow future dates only, starting one day in the future
+        $('.datepicker').Zebra_DatePicker();
+
+        // Select component
+        $(".select2").select2();
+    </script>
+
+</body>
+</html>

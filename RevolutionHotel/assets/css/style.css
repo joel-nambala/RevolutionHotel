@@ -1,0 +1,29 @@
+﻿.glow {
+    background-color: red;
+    box-shadow: 0 0 2px 4px red;
+    animation-name: glow;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+    color: #ffffff;
+    font-size: 12px;
+}
+
+@keyframes glow {
+    0% {
+        box-shadow: 0 0 2px 4px red;
+    }
+
+    50% {
+        box-shadow: 0 0 4px 6px red;
+    }
+
+    100% {
+        box-shadow: 0 0 2px 4px red;
+    }
+}
+
+.customer-detail-img{
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+}

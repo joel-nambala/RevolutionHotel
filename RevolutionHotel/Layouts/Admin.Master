@@ -1,0 +1,245 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.master.cs" Inherits="RevolutionHotel.Layouts.Admin" %>
+
+<!DOCTYPE html>
+
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Admin | <%: Page.Title %></title>
+    <link rel="stylesheet" href="../royalui/vendors/ti-icons/css/themify-icons.css">
+    <link rel="stylesheet" href="../royalui/vendors/base/vendor.bundle.base.css">
+    <link rel="stylesheet" href="../royalui/css/style.css">
+    <link rel="shortcut icon" href="../assets/img/logo.jpg" />
+    <link href="../assets/css/style.css" rel="stylesheet" />
+    <link href="../components/datepicker/css/zebra_datepicker.min.css" rel="stylesheet" />
+    <link href="../components/select2/css/select2.min.css" rel="stylesheet" />
+    <link href="../components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../components/datatables/datatables.min.css" rel="stylesheet" />
+
+    <style>
+        .underline-bottom:not(:last-child){
+            border-bottom: 1px solid #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <div class="container-scroller">
+            <!-- partial:partials/_navbar.html -->
+            <nav class="navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+                <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+                    <a class="navbar-brand brand-logo me-5" href="Dashboard.aspx">
+                        <img src="../assets/img/logo.jpg" class="me-2" alt="logo" /></a>
+                    <a class="navbar-brand brand-logo-mini" href="Dashboard.aspx">
+                        <img src="../assets/img/logo.jpg" alt="logo" /></a>
+                </div>
+                <div class="navbar-menu-wrapper d-flex align-items-center justify-content-end">
+                    <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+                        <span class="ti-view-list"></span>
+                    </button>
+                    <ul class="navbar-nav mr-lg-2">
+                        <%--<li class="nav-item nav-search d-none d-lg-block">
+                            <div class="input-group">
+                                <div class="input-group-prepend hover-cursor" id="navbar-search-icon">
+                                    <span class="input-group-text" id="search">
+                                        <i class="ti-search"></i>
+                                    </span>
+                                </div>
+                                <input type="text" class="form-control" id="navbar-search-input" placeholder="Search now" aria-label="search" aria-describedby="search">
+                            </div>
+                        </li>--%>
+                    </ul>
+                    <ul class="navbar-nav navbar-nav-right">
+                        <li class="nav-item dropdown me-1">
+                            <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
+                                <i class="ti-email mx-0"></i>
+                                <asp:Label ID="lblCount" runat="server" CssClass="count" Visible="false"></asp:Label>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="messageDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
+                                <% =Messages() %>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
+                                <i class="ti-bell mx-0"></i>
+                                <span class="count"></span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
+                                <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
+                                <a class="dropdown-item">
+                                    <div class="item-thumbnail">
+                                        <div class="item-icon bg-success">
+                                            <i class="ti-info-alt mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="item-content">
+                                        <h6 class="font-weight-normal">Application Error</h6>
+                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                            Just now
+                                        </p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item">
+                                    <div class="item-thumbnail">
+                                        <div class="item-icon bg-warning">
+                                            <i class="ti-settings mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="item-content">
+                                        <h6 class="font-weight-normal">Settings</h6>
+                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                            Private message
+                                        </p>
+                                    </div>
+                                </a>
+                                <a class="dropdown-item">
+                                    <div class="item-thumbnail">
+                                        <div class="item-icon bg-info">
+                                            <i class="ti-user mx-0"></i>
+                                        </div>
+                                    </div>
+                                    <div class="item-content">
+                                        <h6 class="font-weight-normal">New user registration</h6>
+                                        <p class="font-weight-light small-text mb-0 text-muted">
+                                            2 days ago
+                                        </p>
+                                    </div>
+                                </a>
+                            </div>
+                        </li>
+                        <li class="nav-item nav-profile dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" data-bs-toggle="dropdown" id="profileDropdown">
+                                <img src="../royalui/images/faces/face28.jpg" alt="profile" />
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="profileDropdown">
+
+                                <a class="dropdown-item" href="Settings.aspx">
+                                    <i class="ti-settings text-primary"></i>
+                                    Settings
+                                </a>
+                                <asp:LinkButton ID="lbtnlogout" runat="server" OnClick="lbtnlogout_Click" CssClass="dropdown-item"><i class="ti-power-off text-primary"></i>Logout</asp:LinkButton>
+                            </div>
+                        </li>
+                    </ul>
+                    <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+                        <span class="ti-view-list"></span>
+                    </button>
+                </div>
+            </nav>
+            <!-- partial -->
+            <div class="container-fluid page-body-wrapper">
+                <!-- partial:partials/_sidebar.html -->
+                <nav class="sidebar sidebar-offcanvas" id="sidebar">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="Dashboard.aspx">
+                                <i class="ti-shield menu-icon"></i>
+                                <span class="menu-title">Dashboard</span>
+                            </a>
+                        </li>
+                        <%--<li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#ui-basic" aria-expanded="false" aria-controls="ui-basic">
+                                <i class="ti-palette menu-icon"></i>
+                                <span class="menu-title">UI Elements</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="ui-basic">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" href="pages/ui-features/buttons.html">Buttons</a></li>
+                                    <li class="nav-item"><a class="nav-link" href="pages/ui-features/typography.html">Typography</a></li>
+                                </ul>
+                            </div>
+                        </li>--%>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Customer.aspx">
+                                <i class="ti-layout-list-post menu-icon"></i>
+                                <span class="menu-title">Customers</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Menu.aspx">
+                                <i class="ti-pie-chart menu-icon"></i>
+                                <span class="menu-title">Menu</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Orders.aspx">
+                                <i class="ti-view-list-alt menu-icon"></i>
+                                <span class="menu-title">Orders</span>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="Statistics.aspx">
+                                <i class="ti-layout menu-icon"></i>
+                                <span class="menu-title">Statistics</span>
+                            </a>
+                        </li>
+                        <%--<li class="nav-item">
+                            <a class="nav-link" href="pages/icons/themify.html">
+                                <i class="ti-star menu-icon"></i>
+                                <span class="menu-title">Icons</span>
+                            </a>
+                        </li>--%>
+                        <%--<li class="nav-item">
+                            <a class="nav-link" data-bs-toggle="collapse" href="#auth" aria-expanded="false" aria-controls="auth">
+                                <i class="ti-user menu-icon"></i>
+                                <span class="menu-title">User Pages</span>
+                                <i class="menu-arrow"></i>
+                            </a>
+                            <div class="collapse" id="auth">
+                                <ul class="nav flex-column sub-menu">
+                                    <li class="nav-item"><a class="nav-link" href="pages/samples/login.html">Login </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="pages/samples/login-2.html">Login 2 </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="pages/samples/register.html">Register </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="pages/samples/register-2.html">Register 2 </a></li>
+                                    <li class="nav-item"><a class="nav-link" href="pages/samples/lock-screen.html">Lockscreen </a></li>
+                                </ul>
+                            </div>
+                        </li>--%>
+                        <%--<li class="nav-item">
+                            <a class="nav-link" href="documentation/documentation.html">
+                                <i class="ti-write menu-icon"></i>
+                                <span class="menu-title">Documentation</span>
+                            </a>
+                        </li>--%>
+                    </ul>
+                </nav>
+                <!-- partial -->
+                <div class="main-panel p-4">
+                    <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+                    </asp:ContentPlaceHolder>
+                </div>
+                <!-- main-panel ends -->
+            </div>
+            <!-- page-body-wrapper ends -->
+        </div>
+    </form>
+
+    <script src="../vendors/js/jQuery.js"></script>
+    <script src="../royalui/vendors/base/vendor.bundle.base.js"></script>
+    <script src="../royalui/vendors/chart.js/Chart.min.js"></script>
+    <script src="../royalui/js/jquery.cookie.js" type="text/javascript"></script>
+    <script src="../royalui/js/off-canvas.js"></script>
+    <script src="../royalui/js/hoverable-collapse.js"></script>
+    <script src="../royalui/js/template.js"></script>
+    <script src="../royalui/js/todolist.js"></script>
+    <script src="../royalui/js/dashboard.js"></script>
+    <script src="../components/datepicker/js/zebra_datepicker.min.js"></script>
+    <script src="../components/select2/js/select2.min.js"></script>
+    <script src="../components/datatables/datatables.min.js"></script>
+
+    <script type="text/javascript">
+        // Select2 component
+        $(".select2").select2();
+
+        // Allow future dates only, starting one day in the future
+        $('.datepicker').Zebra_DatePicker();
+
+        // Data table
+        $("#example").DataTable();
+        //new DataTable('#example');
+    </script>
+</body>
+</html>
