@@ -23,11 +23,11 @@ namespace RevolutionHotel.User
                     Response.Redirect("~/Default.aspx");
                     return;
                 }
-                MakeOrder();
+                LoadOrderDetails();
             }
         }
 
-        private void MakeOrder()
+        private void LoadOrderDetails()
         {
             try
             {
@@ -35,6 +35,14 @@ namespace RevolutionHotel.User
                 string username = Session["username"].ToString();
                 string[] customerDetails = CustomerDetails(username);
                 string[] foodDetails = FoodDetails(foodId);
+
+                ImgFood.ImageUrl = foodDetails[3];
+                ImgFood.Attributes.Add("alt", foodDetails[1]);
+                lblFoodName.Text = foodDetails[1];
+                lblPrice.Text = $"$ {foodDetails[2]}";
+                lblCustomerName.Text = customerDetails[1];
+                lblAddress.Text = customerDetails[2];
+
             }
             catch (Exception ex)
             {
@@ -69,6 +77,7 @@ namespace RevolutionHotel.User
             foodDetails[0] = foodId;
             foodDetails[1] = reader["FoodName"].ToString();
             foodDetails[2] = reader["Price"].ToString();
+            foodDetails[3] = reader["FoodImg"].ToString();
 
             return foodDetails;
         }
@@ -76,6 +85,108 @@ namespace RevolutionHotel.User
         private double ConvertToKSH(int usd)
         {
             return usd * 150.00;
+        }
+
+        protected void btnOrder_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string foodId = Request.QueryString["foodid"];
+                string username = Session["username"].ToString();
+
+                string[] customerDetails = CustomerDetails(username);
+                string[] foodDetails = FoodDetails(foodId);
+
+                string customerId = customerDetails[0].ToString();
+                string customerName = customerDetails[1].ToString();
+                string customerAddress = customerDetails[2].ToString();
+                string foodName = foodDetails[1].ToString();
+                string price = foodDetails[2].ToString();
+                string foodImg = foodDetails[3].ToString();
+
+                string orderId = Components.GenerateRandomId();
+                string status = "Pending"; // Pending, Approved, Cancelled;
+                string quantityRequested = txtQuantity.Text.Trim();
+                int totalPrice = Convert.ToInt32(price) * Convert.ToInt32(quantityRequested);
+                DateTime time = DateTime.Now;
+
+                string description = $"The food {foodName} will be delivered to {customerName} at {customerAddress} within the next 25 hours.";
+
+                connection = Components.GetConnectionToBD();
+                string query = @"INSERT INTO Orders VALUES(@OrderId, @FoodId, @FoodName, @FoodImg, @CustomerId, @CustomerName, @Address, 
+                                @TotalPrice, @OrderDescription, @Quantity, @Status,  @CreatedTime)";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@OrderId", orderId);
+                command.Parameters.AddWithValue("@CustomerId", customerId);
+                command.Parameters.AddWithValue("@FoodId", foodId);
+                command.Parameters.AddWithValue("@CustomerName", customerName);
+                command.Parameters.AddWithValue("@FoodName", foodName);
+                command.Parameters.AddWithValue("@Address", customerAddress);
+                command.Parameters.AddWithValue("@TotalPrice", totalPrice);
+                command.Parameters.AddWithValue("@OrderDescription", description);
+                command.Parameters.AddWithValue("@Quantity", txtQuantity.Text.Trim());
+                command.Parameters.AddWithValue("@Status", status);
+                command.Parameters.AddWithValue("@FoodImg", foodImg);
+                command.Parameters.AddWithValue("@CreatedTime", time);
+
+                int result = command.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    SuccessMessage($"Order {orderId} has been placed succesifully! The food will be delivered to {customerName} at {customerAddress} within the next 24 hours.");
+                    SendNotification(customerId, customerName, customerAddress, foodName);
+                }
+                else
+                {
+                    Message("Something went wrong!");
+                }
+                connection.Close();
+            }
+            //catch (SqlException ex)
+            //{
+            //    Message(ex.Message);
+            //}
+            catch (Exception ex)
+            {
+                Message(ex.Message);
+                ex.Data.Clear();
+            }
+        }
+
+        private void SendNotification(string customerId, string customerName, string customerAddress, string foodName)
+        {
+            try
+            {
+                string id = Components.GenerateRandomId();
+                DateTime time = DateTime.Now;
+                string status = "unread"; // unread, read
+                string description = $"{customerName} has placed an order of {foodName} to be delivered at {customerAddress}.";
+
+                connection = Components.GetConnectionToBD();
+                string query = @"INSERT INTO Notification VALUES(@Id, @Description, @SenderId, @SenderName, @Status, @CreatedAt)";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@Id", id);
+                command.Parameters.AddWithValue("@Description", description);
+                command.Parameters.AddWithValue("@SenderId", customerId);
+                command.Parameters.AddWithValue("@SenderName", customerName);
+                command.Parameters.AddWithValue("@Status", status);
+                command.Parameters.AddWithValue("@CreatedAt", time);
+
+                int result = command.ExecuteNonQuery();
+                if(result > 0)
+                {
+
+                }
+                else
+                {
+
+                }
+                //connection.Close();
+            }
+            catch (Exception ex)
+            {
+                Message(ex.Message);
+                ex.Data.Clear();
+            }
         }
 
         private void Message(string message)

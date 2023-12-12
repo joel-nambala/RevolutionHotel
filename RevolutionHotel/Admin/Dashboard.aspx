@@ -3,29 +3,29 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section>
         <div class="dashboard-header">
-            <div class="row">
-                <div class="col-sm-3 bg-success pt-1 pb-1">
+            <div class="d-flex justify-content-between align-items-center g-4 flex-wrap">
+                <div class="bg-success p-2 flex-fill me-3">
                     <a href="Customer.aspx" class="text-decoration-none text-white">
                         <h5 class="text-capitalize">Total customers</h5>
-                        <% =TotalCustomers() %>
+                        <h4><% =TotalCustomers() %></h4>
                     </a>
                 </div>
-                <div class="col-sm-3 bg-danger pt-1 pb-1">
+                <div class="bg-danger p-2 flex-fill me-3">
                     <a href="Orders.aspx" class="text-decoration-none text-white">
-                        <p class="text-capitalize">Total orders</p>
-                        <asp:Label ID="lblOrders" runat="server" Text="10"></asp:Label>
+                        <h5 class="text-capitalize">Total orders</h5>
+                        <h4><% =TotalOrders() %></h4>
                     </a>
                 </div>
-                <div class="col-sm-3 bg-info pt-1 pb-1">
+                <div class="bg-info p-2 flex-fill me-3">
                     <a href="#" class="text-decoration-none text-white">
-                        <p class="text-capitalize">Total messages</p>
-                        <asp:Label ID="lblMessages" runat="server" Text="10"></asp:Label>
+                        <h5 class="text-capitalize">Total messages</h5>
+                       <h4><% =TotalMessages() %></h4>
                     </a>
                 </div>
-                <div class="col-sm-3 bg-warning pt-1 pb-1">
+                <div class="bg-warning p-2 flex-fill me-3">
                     <a href="Menu.aspx" class="text-decoration-none text-white">
-                        <p class="text-capitalize">Total recipes</p>
-                        <asp:Label ID="lblRecipes" runat="server" Text="10"></asp:Label>
+                        <h5 class="text-capitalize">Total recipes</h5>
+                        <h4><% =TotalRecipes() %></h4>
                     </a>
                 </div>
             </div>

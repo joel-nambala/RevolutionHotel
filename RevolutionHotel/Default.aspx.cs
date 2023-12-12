@@ -61,7 +61,7 @@ namespace RevolutionHotel
                     if (reader["Blocked"].ToString() == "No")
                     {
                         Session["username"] = reader["Username"].ToString();
-                        Session["customerName"] = reader["FullName"].ToString();
+                        Session["customerId"] = reader["CustomerId"].ToString();
                         Response.Redirect("User/Dashboard.aspx");
                     }
                     else

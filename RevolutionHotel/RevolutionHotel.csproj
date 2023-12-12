@@ -73,6 +73,8 @@
     <Content Include="Admin\Menu.aspx" />
     <Content Include="Admin\Message.aspx" />
     <Content Include="Admin\NewMenu.aspx" />
+    <Content Include="Admin\Notification.aspx" />
+    <Content Include="Admin\OrderDetails.aspx" />
     <Content Include="Admin\Orders.aspx" />
     <Content Include="Admin\Settings.aspx" />
     <Content Include="Admin\Statistics.aspx" />
@@ -227,6 +229,20 @@
     </Compile>
     <Compile Include="Admin\NewMenu.aspx.designer.cs">
       <DependentUpon>NewMenu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Notification.aspx.cs">
+      <DependentUpon>Notification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Notification.aspx.designer.cs">
+      <DependentUpon>Notification.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\OrderDetails.aspx.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\OrderDetails.aspx.designer.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
     </Compile>
     <Compile Include="Admin\Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>

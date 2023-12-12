@@ -51,7 +51,7 @@
                         </li>--%>
                     </ul>
                     <ul class="navbar-nav navbar-nav-right">
-                        <li class="nav-item dropdown me-1">
+                        <%--<li class="nav-item dropdown me-1">
                             <a class="nav-link count-indicator dropdown-toggle d-flex justify-content-center align-items-center" id="messageDropdown" href="#" data-bs-toggle="dropdown">
                                 <i class="ti-email mx-0"></i>
                                 <asp:Label ID="lblCount" runat="server" CssClass="count" Visible="false"></asp:Label>
@@ -60,7 +60,7 @@
                                 <p class="mb-0 font-weight-normal float-left dropdown-header">Messages</p>
                                
                             </div>
-                        </li>
+                        </li>--%>
                         <li class="nav-item dropdown">
                             <a class="nav-link count-indicator dropdown-toggle" id="notificationDropdown" href="#" data-bs-toggle="dropdown">
                                 <i class="ti-bell mx-0"></i>
