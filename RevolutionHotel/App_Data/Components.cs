@@ -100,5 +100,21 @@ namespace RevolutionHotel
             }
             return id.ToUpper();
         }
+
+        public static string SplitString(string input, int sliceLength)
+        {
+            string result = "";
+            if(input.Length > sliceLength)
+            {
+                int startIndex = 0;
+                string sliceString = input.Substring(startIndex, sliceLength);
+                result = $"{sliceString}...";
+            }
+            else
+            {
+                result = input;
+            }
+            return result;
+        }
     }
 }

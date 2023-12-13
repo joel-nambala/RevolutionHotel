@@ -17,6 +17,14 @@ namespace RevolutionHotel
         SqlDataReader reader;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["admin"] != null)
+            {
+                ClearSession();
+            }
+            if (Session["username"] != null)
+            {
+               ClearSession();
+            }
             txtUsername.Focus();
         }
 
@@ -122,6 +130,13 @@ namespace RevolutionHotel
                 Message($"ERROR: {error}");
                 ex.Data.Clear();
             }
+        }
+
+        private void ClearSession()
+        {
+            Session.Abandon();
+            Session.Clear();
+            Session.RemoveAll();
         }
 
         protected void Message(string message)

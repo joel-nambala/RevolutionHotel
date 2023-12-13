@@ -78,10 +78,12 @@
     <Content Include="Admin\Orders.aspx" />
     <Content Include="Admin\Settings.aspx" />
     <Content Include="Admin\Statistics.aspx" />
+    <Content Include="assets\css\admin.css" />
     <Content Include="assets\css\global.css" />
     <Content Include="assets\css\login.css" />
     <Content Include="assets\css\style.css" />
     <Content Include="assets\img\logo.jpg" />
+    <Content Include="assets\js\admin.js" />
     <Content Include="assets\js\script.js" />
     <Content Include="components\bootstrap\css\bootstrap.css" />
     <Content Include="components\bootstrap\css\bootstrap.min.css" />

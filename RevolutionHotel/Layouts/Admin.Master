@@ -16,12 +16,7 @@
     <link href="../components/select2/css/select2.min.css" rel="stylesheet" />
     <link href="../components/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
     <link href="../components/datatables/datatables.min.css" rel="stylesheet" />
-
-    <style>
-        .underline-bottom:not(:last-child){
-            border-bottom: 1px solid #dddddd;
-        }
-    </style>
+    <link href="../assets/css/admin.css" rel="stylesheet" />
 </head>
 <body>
     <form id="form1" runat="server">
@@ -68,7 +63,8 @@
                             </a>
                             <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="notificationDropdown">
                                 <p class="mb-0 font-weight-normal float-left dropdown-header">Notifications</p>
-                                <a class="dropdown-item">
+                                <% =Notifications() %>
+                                <%--<a class="dropdown-item">
                                     <div class="item-thumbnail">
                                         <div class="item-icon bg-success">
                                             <i class="ti-info-alt mx-0"></i>
@@ -106,7 +102,7 @@
                                             2 days ago
                                         </p>
                                     </div>
-                                </a>
+                                </a>--%>
                             </div>
                         </li>
                         <li class="nav-item nav-profile dropdown">
@@ -229,17 +225,6 @@
     <script src="../components/datepicker/js/zebra_datepicker.min.js"></script>
     <script src="../components/select2/js/select2.min.js"></script>
     <script src="../components/datatables/datatables.min.js"></script>
-
-    <script type="text/javascript">
-        // Select2 component
-        $(".select2").select2();
-
-        // Allow future dates only, starting one day in the future
-        $('.datepicker').Zebra_DatePicker();
-
-        // Data table
-        $("#example").DataTable();
-        //new DataTable('#example');
-    </script>
+    <script src="../assets/js/admin.js"></script>
 </body>
 </html>
