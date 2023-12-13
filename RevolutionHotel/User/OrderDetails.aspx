@@ -1,14 +1,23 @@
-﻿<%@ Page Title="Order Details" Language="C#" MasterPageFile="~/Layouts/Admin.Master" AutoEventWireup="true" CodeBehind="OrderDetails.aspx.cs" Inherits="RevolutionHotel.Admin.OrderDetails" %>
+﻿<%@ Page Title="Order Details" Language="C#" MasterPageFile="~/Layouts/User.Master" AutoEventWireup="true" CodeBehind="OrderDetails.aspx.cs" Inherits="RevolutionHotel.User.OrderDetails" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="container">
         <div class="mb-3">
             <h2 class="text-capitalize">Order
-                <asp:Label ID="lblOrderHeader" runat="server" Text="Label"></asp:Label>
+            <asp:Label ID="lblOrderHeader" runat="server" Text="Label"></asp:Label>
                 details</h2>
         </div>
 
-        <div class="row mb-2">
+        <div class="row mt-3 d-flex align-items-center">
+            <div class="col-md-6">
+                <p style="font-weight: 600;">Food Image</p>
+            </div>
+            <div class="col-md-6">
+                <asp:Image ID="ImgFood" runat="server" alt="Food Icon" Style="width: 10rem; height: 10rem; border-radius: 50%;" />
+            </div>
+        </div>
+
+        <div class="row mb-2 mt-3">
             <div class="col-md-6">
                 <p style="font-weight: 600;">Customer Name</p>
             </div>
@@ -53,24 +62,12 @@
             </div>
         </div>
 
-        <div class="row mb-3">
+        <div class="row mt-4">
             <div class="col-md-6">
-                <p style="font-weight: 600;">Approve</p>
+                <asp:Button ID="btnCancel" runat="server" Text="Cancel order" CssClass="btn btn-danger w-25 text-capitalize" OnClick="btnCancel_Click" />
             </div>
             <div class="col-md-6">
-                <asp:DropDownList ID="ddlApprove" runat="server" CssClass="form-control w-100">
-                    <asp:ListItem>Pending</asp:ListItem>
-                    <asp:ListItem>Approved</asp:ListItem>
-                    <asp:ListItem>Delivered</asp:ListItem>
-                    <asp:ListItem>Cancelled</asp:ListItem>
-                </asp:DropDownList>
-            </div>
-        </div>
-
-        <div class="row">
-            <div class="col-md-6">
-                <asp:Button ID="btnUpdate" runat="server" Text="Update order" CssClass="btn btn-success w-25" OnClick="btnUpdate_Click"/>
-                <asp:HyperLink ID="hlBack" runat="server" CssClass="btn btn-primary" NavigateUrl="~/Admin/Orders.aspx" Visible="false">Back</asp:HyperLink>
+                <asp:Button ID="btnPayment" runat="server" Text="Make payment" CssClass="btn btn-info w-25 text-capitalize" OnClick="btnPayment_Click" />
             </div>
         </div>
 

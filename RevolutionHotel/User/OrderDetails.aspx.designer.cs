@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace RevolutionHotel.Admin
+namespace RevolutionHotel.User
 {
 
 
@@ -22,6 +22,15 @@ namespace RevolutionHotel.Admin
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label lblOrderHeader;
+
+        /// <summary>
+        /// ImgFood control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image ImgFood;
 
         /// <summary>
         /// lblCustomerName control.
@@ -69,30 +78,21 @@ namespace RevolutionHotel.Admin
         protected global::System.Web.UI.WebControls.Label lblTotalPrice;
 
         /// <summary>
-        /// ddlApprove control.
+        /// btnCancel control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList ddlApprove;
+        protected global::System.Web.UI.WebControls.Button btnCancel;
 
         /// <summary>
-        /// btnUpdate control.
+        /// btnPayment control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnUpdate;
-
-        /// <summary>
-        /// hlBack control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.HyperLink hlBack;
+        protected global::System.Web.UI.WebControls.Button btnPayment;
     }
 }

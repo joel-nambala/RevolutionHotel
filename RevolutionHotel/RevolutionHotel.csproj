@@ -183,7 +183,9 @@
     <Content Include="User\Dashboard.aspx" />
     <Content Include="User\Menu.aspx" />
     <Content Include="User\Order.aspx" />
+    <Content Include="User\OrderDetails.aspx" />
     <Content Include="User\Orders.aspx" />
+    <Content Include="User\Payment.aspx" />
     <Content Include="vendors\js\jQuery.js" />
     <Content Include="Web.config" />
   </ItemGroup>
@@ -340,12 +342,26 @@
     <Compile Include="User\Order.aspx.designer.cs">
       <DependentUpon>Order.aspx</DependentUpon>
     </Compile>
+    <Compile Include="User\OrderDetails.aspx.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\OrderDetails.aspx.designer.cs">
+      <DependentUpon>OrderDetails.aspx</DependentUpon>
+    </Compile>
     <Compile Include="User\Orders.aspx.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="User\Orders.aspx.designer.cs">
       <DependentUpon>Orders.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="User\Payment.aspx.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="User\Payment.aspx.designer.cs">
+      <DependentUpon>Payment.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
