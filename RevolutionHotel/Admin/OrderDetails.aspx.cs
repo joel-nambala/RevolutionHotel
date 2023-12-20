@@ -34,19 +34,29 @@ namespace RevolutionHotel.Admin
                 string orderId = Request.QueryString["orderid"].ToString();
                 //string orderStatus = Session["orderStatus"].ToString();
                 connection = Components.GetConnectionToBD();
-                string query = @"UPDATE Orders SET Status=@Status WHERE OrderId=@orderId";
-                command = new SqlCommand(query, connection);
-                command.Parameters.AddWithValue("@orderId", orderId);
-                command.Parameters.AddWithValue("@Status", ddlApprove.SelectedValue);
-
-                int res = command.ExecuteNonQuery();
-                if (res > 0)
+                if (OrderPaid()) // order has been paid for
                 {
-                    SuccessMessage($"Order {orderId} has been {ddlApprove.SelectedValue} succesifully!");
+                    string query = @"UPDATE Orders SET Status=@Status WHERE OrderId=@orderId";
+                    command = new SqlCommand(query, connection);
+                    command.Parameters.AddWithValue("@orderId", orderId);
+                    command.Parameters.AddWithValue("@Status", ddlApprove.SelectedValue);
+
+                    int res = command.ExecuteNonQuery();
+                    if (res > 0)
+                    {
+                        SuccessMessage($"Order {orderId} has been {ddlApprove.SelectedValue} succesifully!");
+                    }
+                    else
+                    {
+                        Message("Something went wrong!");
+                    }
+
                 }
                 else
                 {
-                    Message("Something went wrong!");
+                    lblMsg.Visible = true;
+                    lblMsg.Text = "The order has to be paid for in order to approve";
+                    lblMsg.CssClass = "alert alert-danger";
                 }
                 connection.Close();
             }
@@ -54,6 +64,36 @@ namespace RevolutionHotel.Admin
             {
                 ex.Data.Clear();
             }
+        }
+
+        private bool OrderPaid()
+        {
+            bool b = false;
+            try
+            {
+                string id = Request.QueryString["orderid"].ToString();
+                connection = Components.GetConnectionToBD();
+                string query = @"SELECT * FROM Orders WHERE OrderId=@id";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", id);
+
+                reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    string payment = reader["Payment"].ToString();
+                    if (payment == "true")
+                    {
+                        b = true;
+                    }
+                }
+                reader.Close();
+            }
+            catch (Exception ex)
+            {
+                ex.Data.Clear();
+            }
+            return b;
         }
 
         private void OrderDeliveredOrCancelled()
@@ -108,10 +148,22 @@ namespace RevolutionHotel.Admin
 
                     string status = reader["Status"].ToString();
                     ddlApprove.SelectedValue = status;
-                    if(status == "Cancelled")
+                    if (status == "Cancelled")
                     {
                         hlBack.Visible = true;
                         btnUpdate.Visible = false;
+                    }
+
+                    string payment = reader["Payment"].ToString();
+                    if (payment == "false")
+                    {
+                        lblPayment.Text = "Pending";
+                        lblPayment.CssClass = "text-danger";
+                    }
+                    if (payment == "true")
+                    {
+                        lblPayment.Text = "Paid";
+                        lblPayment.CssClass = "text-success";
                     }
                 }
                 connection.Close();

@@ -85,6 +85,7 @@
     <Content Include="assets\img\logo.jpg" />
     <Content Include="assets\js\admin.js" />
     <Content Include="assets\js\script.js" />
+    <Content Include="assets\js\user.js" />
     <Content Include="components\bootstrap\css\bootstrap.css" />
     <Content Include="components\bootstrap\css\bootstrap.min.css" />
     <Content Include="components\bootstrap\js\bootstrap.js" />

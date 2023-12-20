@@ -36,6 +36,8 @@ namespace RevolutionHotel.User
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@orderId", orderId);
 
+                string statusCls = "";
+
                 reader = command.ExecuteReader();
                 if(reader.HasRows)
                 {
@@ -46,6 +48,38 @@ namespace RevolutionHotel.User
                     lblOrderDescription.Text = reader["OrderDescription"].ToString();
                     lblQuantity.Text = reader["Quantity"].ToString();
                     lblTotalPrice.Text = $"$ {reader["TotalPrice"].ToString()}";
+                    string status = reader["Status"].ToString();
+                    string payment = reader["Payment"].ToString() ;
+
+                    switch (status)
+                    {
+                        case "Pending":
+                            statusCls = "text-warning";
+                            break;
+                        case "Approved":
+                            statusCls = "text-success";
+                            break;
+                        case "Delivered":
+                            statusCls = "text-info";
+                            break;
+                        case "Cancelled":
+                            statusCls = "text-danger";
+                            break;
+                    }
+                    lblStatus.Text = status;
+                    lblStatus.CssClass = statusCls;
+
+                    if(status == "Approved" || status == "Cancelled" || status == "Delivered")
+                    {
+                        btnCancel.Visible = false;
+                        btnPayment.Visible = false;
+                    }
+
+                    if(payment == "true")
+                    {
+                        btnCancel.Visible = false;
+                        btnPayment.Visible = false;
+                    }
                 }
                 connection.Close();
             }
@@ -97,7 +131,9 @@ namespace RevolutionHotel.User
 
         protected void btnPayment_Click(object sender, EventArgs e)
         {
-            Response.Redirect("Payment.aspx");
+            string orderId = Request.QueryString["orderid"].ToString();
+            Session["orderid"] = orderId;
+            Response.Redirect($"Payment.aspx?orderid={orderId}");
         }
 
         private void Message(string message)

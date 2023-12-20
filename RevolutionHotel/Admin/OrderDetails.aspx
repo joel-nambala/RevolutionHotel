@@ -2,6 +2,9 @@
 
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <section class="container">
+        <div class="mt-3 mb-3">
+            <asp:Label ID="lblMsg" runat="server" Visible="false" Text="Label"></asp:Label>
+        </div>
         <div class="mb-3">
             <h2 class="text-capitalize">Order
                 <asp:Label ID="lblOrderHeader" runat="server" Text="Label"></asp:Label>
@@ -53,6 +56,15 @@
             </div>
         </div>
 
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <p style="font-weight: 600;">Payment Status</p>
+            </div>
+            <div class="col-md-6">
+                <asp:Label ID="lblPayment" runat="server" Text="Label"></asp:Label>
+            </div>
+        </div>
+
         <div class="row mb-3">
             <div class="col-md-6">
                 <p style="font-weight: 600;">Approve</p>
@@ -69,7 +81,7 @@
 
         <div class="row">
             <div class="col-md-6">
-                <asp:Button ID="btnUpdate" runat="server" Text="Update order" CssClass="btn btn-success w-25" OnClick="btnUpdate_Click"/>
+                <asp:Button ID="btnUpdate" runat="server" Text="Update order" CssClass="btn btn-success w-25 text-capitalize" OnClick="btnUpdate_Click" />
                 <asp:HyperLink ID="hlBack" runat="server" CssClass="btn btn-primary" NavigateUrl="~/Admin/Orders.aspx" Visible="false">Back</asp:HyperLink>
             </div>
         </div>

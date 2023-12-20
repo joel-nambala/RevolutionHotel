@@ -116,5 +116,59 @@ namespace RevolutionHotel
             }
             return result;
         }
+
+        public static string GenerateRandomTransactionId(string username)
+        {
+            string id = string.Empty;
+            try
+            {
+                string pattern = "67890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM12345";
+                int len = pattern.Length;
+                int otpdigit = 20;
+                string finalstring;
+
+                int getindex;
+
+                for(int i = 0;i <= otpdigit; i++)
+                {
+                    do
+                    {
+                        getindex= new Random().Next(0, len);
+                        finalstring = pattern.ToCharArray()[getindex].ToString();
+                    }
+                    while(id.IndexOf(finalstring) != -1);
+                    id += finalstring;
+                }
+                
+            }
+            catch(Exception ex)
+            {
+                ex.Data.Clear();
+            }
+            return $"{GetFirstThreeLetterOfUsername(username)}{id}".ToUpper();
+        }
+
+        public static string GetFirstThreeLetterOfUsername(string username)
+        {
+            string result = "";
+            try
+            {
+                if (username.Length > 2)
+                {
+                    string splitString = username.Substring(0, 3);
+                    result = splitString.Trim();
+                }
+                else
+                {
+                    result = $"{username}";
+                }
+            }
+            catch(Exception ex)
+            {
+                ex.Data.Clear();
+            }
+            return result.ToUpper();
+        }
+        
     }
 }

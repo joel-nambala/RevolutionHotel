@@ -17,7 +17,8 @@ const startCountDown = function () {
     if (secondsRemaining <= 0) {
         window.location.href = "../Default.aspx";
     }
-    console.log(secondsRemaining);
+    //console.log(secondsRemaining);
 }
 
-setInterval(startCountDown, 1000);
+//setInterval(startCountDown, 1000);
+

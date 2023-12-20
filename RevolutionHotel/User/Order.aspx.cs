@@ -82,11 +82,6 @@ namespace RevolutionHotel.User
             return foodDetails;
         }
 
-        private double ConvertToKSH(int usd)
-        {
-            return usd * 150.00;
-        }
-
         protected void btnOrder_Click(object sender, EventArgs e)
         {
             try
@@ -106,6 +101,7 @@ namespace RevolutionHotel.User
 
                 string orderId = Components.GenerateRandomId();
                 string status = "Pending"; // Pending, Approved, Cancelled;
+                string payment = "false"; // true, false
                 string quantityRequested = txtQuantity.Text.Trim();
                 int totalPrice = Convert.ToInt32(price) * Convert.ToInt32(quantityRequested);
                 DateTime time = DateTime.Now;
@@ -114,7 +110,7 @@ namespace RevolutionHotel.User
 
                 connection = Components.GetConnectionToBD();
                 string query = @"INSERT INTO Orders VALUES(@OrderId, @FoodId, @FoodName, @FoodImg, @CustomerId, @CustomerName, @Address, 
-                                @TotalPrice, @OrderDescription, @Quantity, @Status,  @CreatedTime)";
+                                @TotalPrice, @OrderDescription, @Quantity, @Status,  @CreatedTime, @Payment)";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@OrderId", orderId);
                 command.Parameters.AddWithValue("@CustomerId", customerId);
@@ -126,6 +122,7 @@ namespace RevolutionHotel.User
                 command.Parameters.AddWithValue("@OrderDescription", description);
                 command.Parameters.AddWithValue("@Quantity", txtQuantity.Text.Trim());
                 command.Parameters.AddWithValue("@Status", status);
+                command.Parameters.AddWithValue("@Payment", payment);
                 command.Parameters.AddWithValue("@FoodImg", foodImg);
                 command.Parameters.AddWithValue("@CreatedTime", time);
 
@@ -141,10 +138,10 @@ namespace RevolutionHotel.User
                 }
                 connection.Close();
             }
-            //catch (SqlException ex)
-            //{
-            //    Message(ex.Message);
-            //}
+            catch (SqlException ex)
+            {
+                Message(ex.Message);
+            }
             catch (Exception ex)
             {
                 Message(ex.Message);
@@ -198,7 +195,7 @@ namespace RevolutionHotel.User
         private void SuccessMessage(string message)
         {
             string page = "Orders.aspx";
-            string strScript = "<script>alert('" + message + "');window.location='" + page + "'</script>";
+            string strScript = "<script>alert('" + message + "');window.location='" + page + "';</script>";
             ClientScript.RegisterStartupScript(GetType(), "Client Script", strScript.ToString());
         }
     }

@@ -12,6 +12,7 @@ namespace RevolutionHotel
     {
         SqlConnection connection;
         SqlCommand command;
+        SqlDataReader reader;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (!IsPostBack)
@@ -33,17 +34,17 @@ namespace RevolutionHotel
                 string newPassword = txtPassword.Text.Trim();
                 string confirmNewPass = txtConfirmPassword.Text.Trim();
 
-                if(newPassword != confirmNewPass)
+                if (newPassword != confirmNewPass)
                 {
                     Message("Passwords do not match");
                     return;
                 }
 
-                if(!Components.ValidPassword(newPassword))
+                if (!Components.ValidPassword(newPassword))
                 {
                     Message("Password must have 8 characters, atleast one uppercase letter, one lowercase letter and one special character.");
                     return;
-                }                
+                }
 
                 connection = Components.GetConnectionToBD();
                 string query = @"UPDATE Customer SET Password=@Password WHERE CustomerId=@CustomerId AND Email=@Email";
@@ -55,7 +56,11 @@ namespace RevolutionHotel
                 int result = command.ExecuteNonQuery();
                 if (result > 0)
                 {
-                    SuccessMessage("Password has been reset successifully!");
+                    string recipient = customerEmail;
+                    string subject = "Password Reset";
+                    string body = $"New password for {GetStaffFullNames()} is <b>{newPassword}</b>. <br/><br/>This password is protected and do not share it with anyone.";
+                    Components.SendEmailAlerts(recipient, subject, body);
+                    SuccessMessage("Password has been reset sucessifully. A copy of the password has been send to your email!");
                 }
                 else
                 {
@@ -64,6 +69,7 @@ namespace RevolutionHotel
             }
             catch (Exception ex)
             {
+                Message(ex.Message);
                 ex.Data.Clear();
             }
         }
@@ -76,6 +82,32 @@ namespace RevolutionHotel
             Session.Clear();
         }
 
+        protected string GetStaffFullNames()
+        {
+            string fullName = string.Empty;
+            try
+            {
+                string customerId = Request.QueryString["customerid"].ToString();
+                connection = Components.GetConnectionToBD();
+                string query = @"SELECT * FROM Customer WHERE CustomerId = @id";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("@id", customerId);
+
+                reader = command.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    reader.Read();
+                    fullName = reader["FullName"].ToString();
+                }
+            }
+            catch (Exception ex)
+            {
+                Message(ex.Message);
+                ex.Data.Clear();
+            }
+            return fullName;
+        }
+
         protected void Message(string message)
         {
             string strScript = "<script>alert('" + message + "');</script>";
@@ -84,8 +116,8 @@ namespace RevolutionHotel
 
         protected void SuccessMessage(string message)
         {
-            string myPage = "Default.aspx";
-            string strScript = "<script>alert('" + message + "');window.location='" + myPage + "'</script>";
+            string newPage = "Default.aspx";
+            string strScript = "<script>alert('" + message + "');window.location='" + newPage + "'</script>";
             ClientScript.RegisterStartupScript(GetType(), "Client Script", strScript.ToString());
         }
     }

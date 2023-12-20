@@ -29,11 +29,11 @@
         </div>
 
         <div class="mt-4 mb-2 d-flex justify-content-center align-items-center">
-            <asp:Button ID="btnLogin" runat="server" Text="Login" CssClass="btn btn-danger w-75 text-uppercase" OnClick="btnLogin_Click" />
+            <asp:Button ID="Button1" runat="server" Text="Login" CssClass="btn btn-danger w-75 text-uppercase" OnClick="btnLogin_Click" />
         </div>
 
         <div class="d-flex justify-content-center align-items-center mt-3">
-            <asp:LinkButton ID="lbtnForgot" runat="server" OnClick="lbtnForgot_Click">Forgot Password?</asp:LinkButton>
+            <asp:LinkButton ID="LinkButton1" runat="server" OnClick="lbtnForgot_Click">Forgot Password?</asp:LinkButton>
         </div>
 
         <div class="d-flex justify-content-center align-items-center mt-4">

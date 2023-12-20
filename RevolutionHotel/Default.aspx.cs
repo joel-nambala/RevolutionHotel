@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Web;
+using System.Web.Services;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
@@ -49,33 +50,53 @@ namespace RevolutionHotel
                     string user = ConfigurationManager.AppSettings["username"];
                     string pass = ConfigurationManager.AppSettings["password"];
 
-                    if (user == username && pass == password)
+                    if (user == username)
                     {
-                        Session["admin"] = user.ToString();
-                        Response.Redirect("Admin/Dashboard.aspx");
+                        if(pass == password)
+                        {
+                            Session["admin"] = user.ToString();
+                            Response.Redirect("Admin/Dashboard.aspx");
+                        }
+                        else
+                        {
+                            lblMsg.Text = "Incorrect password";
+                            lblMsg.Visible = true;
+                            txtPassword.Focus();
+                            return;
+                        }
                     }
                 }
 
                 connection = Components.GetConnectionToBD();
-                string query = @"SELECT * FROM Customer WHERE Username = @Username AND Password = @Password";
+                string query = @"SELECT * FROM Customer WHERE Username = @Username";
                 command = new SqlCommand(query, connection);
                 command.Parameters.AddWithValue("@Username", username);
-                command.Parameters.AddWithValue("@Password", password);
+                //command.Parameters.AddWithValue("@Password", password);
 
                 reader = command.ExecuteReader();
                 if (reader.HasRows)
                 {
                     reader.Read();
-                    if (reader["Blocked"].ToString() == "No")
+                    if (reader["Password"].ToString() == password)
                     {
-                        Session["username"] = reader["Username"].ToString();
-                        Session["customerId"] = reader["CustomerId"].ToString();
-                        Response.Redirect("User/Dashboard.aspx");
+                        if (reader["Blocked"].ToString() == "No")
+                        {
+                            Session["username"] = reader["Username"].ToString();
+                            Session["customerId"] = reader["CustomerId"].ToString();
+                            Response.Redirect("User/Dashboard.aspx");
+                        }
+                        else
+                        {
+                            Session["username"] = reader["Username"].ToString();
+                            UserBlockedMessage("Your account has been blocked. Please contact the system administrator.");
+                        }
                     }
                     else
                     {
-                        Session["username"] = reader["Username"].ToString();
-                        UserBlockedMessage("Your account has been blocked. Please contact the system administrator.");
+                        lblMsg.Text = "Incorrect password";
+                        lblMsg.Visible = true;
+                        txtPassword.Focus();
+                        return;
                     }
                 }
                 else
@@ -137,6 +158,7 @@ namespace RevolutionHotel
             Session.Abandon();
             Session.Clear();
             Session.RemoveAll();
+            //Session.Clear();
         }
 
         protected void Message(string message)
@@ -156,6 +178,12 @@ namespace RevolutionHotel
             string myPage = "Contact.aspx";
             string strScript = "<script>alert('" + message + "');window.location='" + myPage + "'</script>";
             ClientScript.RegisterStartupScript(GetType(), "Client Script", strScript.ToString());
+        }
+        [WebMethod]
+        public static string GetCustomerData()
+        {
+            string[] data = { "benz", "toyota", "mazda", "isuzu" };
+            return "Hello from the server";
         }
     }
 }

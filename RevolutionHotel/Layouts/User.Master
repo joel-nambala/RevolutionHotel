@@ -230,6 +230,7 @@
     <script src="../components/datepicker/js/zebra_datepicker.min.js"></script>
     <script src="../components/select2/js/select2.min.js"></script>
     <script src="../components/datatables/datatables.min.js"></script>
+    <script src="../assets/js/user.js"></script>
 
     <script type="text/javascript">
         // Select2 component

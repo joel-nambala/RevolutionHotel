@@ -15,4 +15,3 @@ const togglePasswordVisibility = function (e) {
 }
 
 showPasswordBtn.addEventListener("click", togglePasswordVisibility);
-

@@ -16,6 +16,7 @@
                         <th>Total Price</th>
                         <th>Quantity</th>
                         <th>Status</th>
+                        <th>Paid</th>
                         <th>Actions</th>
                     </tr>
                 </thead>

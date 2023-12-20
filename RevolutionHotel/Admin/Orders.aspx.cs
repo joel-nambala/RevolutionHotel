@@ -49,6 +49,7 @@ namespace RevolutionHotel.Admin
                             <td>{2}</td>
                             <td>$ {3}</td>                            
                             <td>{4}</td>
+                            <td>{7}</td>
                             <td>{5}</td>
                             <td>
                                 <a href=""OrderDetails.aspx?orderid={6}"" class=""link-primary text-decoration-none"">View</a>
@@ -60,7 +61,8 @@ namespace RevolutionHotel.Admin
                         reader["TotalPrice"].ToString(),
                         reader["Quantity"].ToString(),
                         reader["Status"].ToString(),
-                        reader["OrderId"].ToString()
+                        reader["OrderId"].ToString(),
+                        reader["Payment"].ToString()
                         );
                     }
                 }

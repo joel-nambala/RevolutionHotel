@@ -62,6 +62,15 @@
             </div>
         </div>
 
+        <div class="row mb-2">
+            <div class="col-md-6">
+                <p style="font-weight: 600;">Status</p>
+            </div>
+            <div class="col-md-6">
+                <asp:Label ID="lblStatus" runat="server" Text="Label"></asp:Label>
+            </div>
+        </div>
+
         <div class="row mt-4">
             <div class="col-md-6">
                 <asp:Button ID="btnCancel" runat="server" Text="Cancel order" CssClass="btn btn-danger w-25 text-capitalize" OnClick="btnCancel_Click" />

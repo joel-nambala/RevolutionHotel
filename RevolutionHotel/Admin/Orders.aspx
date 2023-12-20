@@ -15,6 +15,7 @@
                         <th>Food Name</th>
                         <th>Total Price</th>
                         <th>Quantity</th>
+                        <th>Payment</th>
                         <th>Status</th>
                         <th>Actions</th>
                     </tr>
