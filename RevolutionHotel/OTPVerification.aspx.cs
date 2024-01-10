@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Mail;
 using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.UI;
@@ -57,6 +58,10 @@ namespace RevolutionHotel
                     string body = $"Your secret OTP is <b>{reader["OTP"]}</b>. <br/><br/>Please do not share this OTP with anyone else.";
                     Components.SendEmailAlerts(email, subject, body);
                 }
+            }
+            catch(SmtpException ex)
+            {
+                Message(ex.Message);
             }
             catch (Exception ex)
             {

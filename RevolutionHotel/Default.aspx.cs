@@ -31,6 +31,11 @@ namespace RevolutionHotel
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
+            //Login();
+            HashPasswords();
+        }
+        public void Login()
+        {
             try
             {
                 string username = txtUsername.Text.Trim();
@@ -85,7 +90,8 @@ namespace RevolutionHotel
                             Session["username"] = UserName;
                             Session["customerId"] = reader["CustomerId"].ToString();
                             UpdateOTP(UserName);
-                            Response.Redirect($"OTPVerification.aspx?customerid={reader["CustomerId"]}");
+                            OTPMessage("An OTP has been sent to your email. Please verify the OTP to continue.", $"OTPVerification.aspx?customerid={reader["CustomerId"]}");
+                            //Response.Redirect($"OTPVerification.aspx?customerid={reader["CustomerId"]}");
                         }
                         else
                         {
@@ -124,7 +130,7 @@ namespace RevolutionHotel
                 command.Parameters.AddWithValue("OTP", otp);
 
                 int r = command.ExecuteNonQuery();
-                if (r > 0){}else{}
+                if (r > 0) { } else { }
                 connection.Close();
             }
             catch (Exception ex)
@@ -132,7 +138,7 @@ namespace RevolutionHotel
                 ex.Data.Clear();
             }
         }
-        
+
         protected void lbtnForgot_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
@@ -181,6 +187,22 @@ namespace RevolutionHotel
             //Session.Clear();
         }
 
+        protected void HashPasswords()
+        {
+            try
+            {
+                string password = txtPassword.Text.Trim();
+                string hashedPassword = Components.HashPasswords(password);
+                bool originalPassword = Components.EnhanceHashedPassword(password, hashedPassword);
+                //Message($"The original password is {password} and the hashed password is {hashedPassword}");
+                Message($"The orignal password has been changed {originalPassword.ToString()}");    
+            }
+            catch (Exception ex)
+            {
+                ex.Data.Clear();
+            }
+        }
+
         protected void Message(string message)
         {
             string strScript = "<script>alert('" + message + "');</script>";
@@ -199,11 +221,10 @@ namespace RevolutionHotel
             string strScript = "<script>alert('" + message + "');window.location='" + myPage + "'</script>";
             ClientScript.RegisterStartupScript(GetType(), "Client Script", strScript.ToString());
         }
-        [WebMethod]
-        public static string GetCustomerData()
+        protected void OTPMessage(string message, string page)
         {
-            string[] data = { "benz", "toyota", "mazda", "isuzu" };
-            return "Hello from the server";
+            string strScript = "<script>alert('" + message + "');window.location='" + page + "'</script>";
+            ClientScript.RegisterStartupScript(GetType(), "Client Script", strScript.ToString());
         }
     }
 }

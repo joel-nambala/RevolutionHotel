@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Text.RegularExpressions;
 using System.Configuration;
+using Microsoft.SqlServer.Server;
 
 namespace RevolutionHotel
 {
@@ -51,6 +52,17 @@ namespace RevolutionHotel
             smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
             smtpClient.EnableSsl = true;
             smtpClient.Send(message);
+        }
+
+        public static string HashPasswords(string password)
+        {
+            string passwordHash = BCrypt.Net.BCrypt.EnhancedHashPassword(password, 13);
+            return passwordHash;
+        }
+
+        public static bool EnhanceHashedPassword(string password, string hashPassword)
+        {
+            return BCrypt.Net.BCrypt.EnhancedVerify(password, hashPassword);
         }
 
         public static bool ValidPassword(string password)
