@@ -148,6 +148,37 @@ namespace RevolutionHotel
             return $"{GetFirstThreeLetterOfUsername(username)}{id}".ToUpper();
         }
 
+        public static string GenerateOTP()
+        {
+            string id = string.Empty;
+            try
+            {
+                string pattern = "0123456789abcdefghijklmnopqrstuvwxyz";
+                int len = pattern.Length;
+                int otpdigit = 6;
+                string finalstring;
+
+                int getindex;
+
+                for (int i = 0; i <= otpdigit; i++)
+                {
+                    do
+                    {
+                        getindex = new Random().Next(0, len);
+                        finalstring = pattern.ToCharArray()[getindex].ToString();
+                    }
+                    while (id.IndexOf(finalstring) != -1);
+                    id += finalstring;
+                }
+
+            }
+            catch (Exception ex)
+            {
+                ex.Data.Clear();
+            }
+            return id.ToUpper();
+        }
+
         public static string GetFirstThreeLetterOfUsername(string username)
         {
             string result = "";

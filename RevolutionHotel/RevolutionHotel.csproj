@@ -110,6 +110,7 @@
     <Content Include="Global.asax" />
     <Content Include="Images\profile_f.png" />
     <Content Include="Images\profile_m.png" />
+    <Content Include="OTPVerification.aspx" />
     <Content Include="Register.aspx" />
     <Content Include="ResetPassword.aspx" />
     <Content Include="royalui\css\style.css" />
@@ -309,6 +310,13 @@
     <Compile Include="Layouts\User.Master.designer.cs">
       <DependentUpon>User.Master</DependentUpon>
     </Compile>
+    <Compile Include="OTPVerification.aspx.cs">
+      <DependentUpon>OTPVerification.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="OTPVerification.aspx.designer.cs">
+      <DependentUpon>OTPVerification.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Register.aspx.cs">
       <DependentUpon>Register.aspx</DependentUpon>
@@ -457,9 +465,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

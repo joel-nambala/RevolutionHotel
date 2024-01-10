@@ -24,7 +24,7 @@ namespace RevolutionHotel
             }
             if (Session["username"] != null)
             {
-               ClearSession();
+                ClearSession();
             }
             txtUsername.Focus();
         }
@@ -52,7 +52,7 @@ namespace RevolutionHotel
 
                     if (user == username)
                     {
-                        if(pass == password)
+                        if (pass == password)
                         {
                             Session["admin"] = user.ToString();
                             Response.Redirect("Admin/Dashboard.aspx");
@@ -81,9 +81,11 @@ namespace RevolutionHotel
                     {
                         if (reader["Blocked"].ToString() == "No")
                         {
-                            Session["username"] = reader["Username"].ToString();
+                            string UserName = reader["Username"].ToString();
+                            Session["username"] = UserName;
                             Session["customerId"] = reader["CustomerId"].ToString();
-                            Response.Redirect("User/Dashboard.aspx");
+                            UpdateOTP(UserName);
+                            Response.Redirect($"OTPVerification.aspx?customerid={reader["CustomerId"]}");
                         }
                         else
                         {
@@ -110,9 +112,27 @@ namespace RevolutionHotel
                 ex.Data.Clear();
             }
         }
+        private void UpdateOTP(string username)
+        {
+            try
+            {
+                string otp = Components.GenerateOTP();
+                connection = Components.GetConnectionToBD();
+                string query = @"UPDATE Customer SET OTP = @otp WHERE Username = @Username";
+                command = new SqlCommand(query, connection);
+                command.Parameters.AddWithValue("Username", username);
+                command.Parameters.AddWithValue("OTP", otp);
 
-
-
+                int r = command.ExecuteNonQuery();
+                if (r > 0){}else{}
+                connection.Close();
+            }
+            catch (Exception ex)
+            {
+                ex.Data.Clear();
+            }
+        }
+        
         protected void lbtnForgot_Click(object sender, EventArgs e)
         {
             string username = txtUsername.Text.Trim();
