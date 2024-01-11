@@ -31,8 +31,8 @@ namespace RevolutionHotel
 
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            //Login();
-            HashPasswords();
+            Login();
+            //HashPasswords();
         }
         public void Login()
         {

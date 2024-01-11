@@ -50,7 +50,7 @@ namespace RevolutionHotel
             var smtpClient = new SmtpClient("smtp.gmail.com");
             smtpClient.Port = 25;
             smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
-            smtpClient.EnableSsl = true;
+            //smtpClient.EnableSsl = true;
             smtpClient.Send(message);
         }
 
@@ -134,7 +134,7 @@ namespace RevolutionHotel
             string id = string.Empty;
             try
             {
-                string pattern = "67890qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM12345";
+                string pattern = "67890QWERTYUIOPASDFGHJKLZXCVBNM12345";
                 int len = pattern.Length;
                 int otpdigit = 20;
                 string finalstring;
@@ -157,7 +157,7 @@ namespace RevolutionHotel
             {
                 ex.Data.Clear();
             }
-            return $"{GetFirstThreeLetterOfUsername(username)}{id}".ToUpper();
+            return $"{GetFirstThreeLetterOfUsername(username)}{id}";
         }
 
         public static string GenerateOTP()
@@ -193,7 +193,7 @@ namespace RevolutionHotel
 
         public static string GetFirstThreeLetterOfUsername(string username)
         {
-            string result = "";
+            string result = string.Empty;
             try
             {
                 if (username.Length > 2)
