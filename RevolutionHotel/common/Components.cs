@@ -50,7 +50,7 @@ namespace RevolutionHotel
             var smtpClient = new SmtpClient("smtp.gmail.com");
             smtpClient.Port = 25;
             smtpClient.Credentials = new NetworkCredential(senderEmail, senderPassword);
-            //smtpClient.EnableSsl = true;
+            smtpClient.EnableSsl = true;
             smtpClient.Send(message);
         }
 
